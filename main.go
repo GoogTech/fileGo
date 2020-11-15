@@ -54,6 +54,10 @@ func main() {
 
 }
 
+var (
+	currPath = GetCurrentPath() // 当前项目的绝对路径
+)
+
 type Size interface {
 	Size() int64
 }
@@ -79,23 +83,35 @@ func upload(w http.ResponseWriter, r *http.Request) {
 		}
 		// 文件名
 		Filename := multi.Filename
-		// 判断文件是否存在
-		if Exists(fmt.Sprintf("files/%s", Filename)) {
+		// 判断文件是否存在,
+		// 当前程序使用的路径是当前项目的的绝对路径 currPath.
+		// 若想要使用相对路径, 例如将 files 文件夹与项目文件夹同目录, 则可以只使用: files/%s
+		// 注: 若要使用相对路径, 需要将 main.go、godw.conf、template 及 files 放在同一个目录, 然后运行 go run main.go 即可.
+		if Exists(fmt.Sprintf(currPath + "/files/%s", Filename)) {
 			if r.URL != nil && strings.HasSuffix(r.URL.String(), "upload/f") {
-				if err := os.Remove(fmt.Sprintf("files/%s", Filename)); err != nil {
+				if err := os.Remove(fmt.Sprintf(currPath + "/files/%s", Filename)); err != nil {
 					http.Error(w, fmt.Sprintf("WARN: [%s] %s ...", Filename, err.Error()), 500)
 					return
 				}
 			} else {
 				for i := 1; i < 100; i++ {
-					if !Exists(fmt.Sprintf("files/%s.%d", Filename, i)) {
+					if !Exists(fmt.Sprintf(currPath + "/files/%s.%d", Filename, i)) {
 						Filename = fmt.Sprintf("%s.%d", Filename, i)
 						break
 					}
 				}
 			}
 		}
-		f, err := os.Create(fmt.Sprintf("files/%s", Filename))
+		// 在写入文件之前应先创建 files 文件夹, 否则若 files 不存在则会抛出异常哟
+		if !Exists(currPath + "/files") {
+			err = os.Mkdir(currPath + "/files", os.ModePerm)
+			if err != nil {
+				http.Error(w, err.Error(), 500)
+				return
+			}
+		}
+		// 将源文件写入到目标文件
+		f, err := os.Create(fmt.Sprintf(currPath + "/files/%s", Filename))
 		if err != nil {
 			http.Error(w, err.Error(), 500)
 			return
@@ -127,12 +143,12 @@ func download(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "multipart/form-data")
 	w.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%s", fname))
 	// 判断文件是否存在
-	if !Exists(fmt.Sprintf("files/%s", fname)) {
+	if !Exists(fmt.Sprintf(currPath + "/files/%s", fname)) {
 		http.Error(w, fmt.Sprintf("WARN: [%s] file not exists ...", fname), 500)
 		return
 	}
 	// 写入文件流
-	FileRF(fmt.Sprintf("files/%s", fname), func(f *os.File) {
+	FileRF(fmt.Sprintf(currPath + "/files/%s", fname), func(f *os.File) {
 		_, err := io.Copy(w, bufio.NewReader(f))
 		if err != nil {
 			http.Error(w, err.Error(), 500)
@@ -394,4 +410,14 @@ func IsBlank(s string) bool {
 		}
 	}
 	return true
+}
+
+// 获取当前项目的绝对路径
+// C:/Users/Administrator.DESKTOP-3V51O0O/Desktop/Go/workbench/godw
+func GetCurrentPath() string {
+	dir, err := os.Getwd()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return strings.Replace(dir, "\\", "/", -1)
 }
