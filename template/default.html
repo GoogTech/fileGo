@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- 设置viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>网络文件管理系统</title>
+    <title>FileGo : File Management</title>
     <!-- 引入框架 -->
     <script src="js/jquery-2.2.3.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -14,27 +14,24 @@
     <link rel="stylesheet" href="css/godown.css">
 </head>
 <body>
+
 <!-- 模态框 -->
 <div class="container">
-    <!-- 过度效果：fade -->
+    <!-- 过度效果: fade -->
     <div class="modal fade" id="modal">
-        <!-- 大小：modal-sm modal-lg -->
-        <div class="modal-dialog modal-lg">
+        <!-- 大小: modal-sm modal-lg -->
+        <div class="modal-dialog modal-sm">
+            <!-- 文件上传面板 -->
             <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="modal-title">上传文件</h4>
-                </div>
                 <div class="modal-body">
                     <form id="uform" enctype="multipart/form-data" action="/upload" method="post">
                         <div class="form-group">
-                            <label for="fn"> </label>
-                            <input class="form-control" type="file" size="50" name="file" id="fn">
+                            <label for="fn"></label>
+                            <input class="form-control" type="file" size="5" name="file" id="fn">
                         </div>
                     </form>
                 </div>
+                <!-- 文件上传面板中的底部按钮区 -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button id="ubtn" type="button" class="btn btn-success">上传</button>
@@ -43,53 +40,46 @@
         </div>
     </div>
 </div>
+
 <!-- 导航条 -->
-<!-- 样式： avbar-invers 和 navbar-default -->
+<!-- 样式: avbar-invers 和 navbar-default -->
 <!-- 位置:  navbar-fixed-top 和 navbar-fixed-bottom -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <!-- 导航头部 navbar-header -->
-        <div class="navbar-header">
-            <a href="/" class="navbar-brand">德纳科技</a>
-        </div>
-        <!-- 导航项目 -->
-        <!-- 选中状态 active -->
-        <div id="navbar" class="collapse navbar-collapse">
-            <form class="navbar-form navbar-left" action="#" method="post">
-                <div class="form-group">
-                    <input id="fscan" type="text" name="f" class="form-control btn-lg" placeholder="文件关键字">
-                </div>
-                <button type="submit" class="btn btn-default">搜索</button>
-            </form>
-            <div class="nav navbar-btn navbar-right">
-			{{if .Stat}}
-                <button id="btn" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal">上传文件
-                </button>
-			{{end}}
+<div style="text-align: center">
+    <nav class="navbar navbar-brand">
+        <div class="container">
+            <!-- 选中状态 active -->
+            <div id="navbar" class="collapse navbar-collapse">
+                <form class="navbar-form navbar-center" action="#" method="post">
+                    <div class="form-group">
+                        <input id="fscan" type="text" name="f" class="form-control btn-lg" placeholder="请输入文件名中的关键字. . .">
+                    </div>
+                    <button style="margin-left: 12px" type="submit" class="btn btn-info">检索</button>
+                    {{if .Stat}}
+                        <button id="btn" type="button" class="btn btn-success" data-toggle="modal" data-target="#modal">上传
+                        </button>
+                        <!-- 该功能暂未实现哈 -->
+                        <button id="" type="button" class="btn btn-primary">新建
+                        </button>
+                    {{end}}
+                </form>
             </div>
         </div>
-    </div>
-</nav>
-<div class="container">
+    </nav>
+</div>
+
+<!-- 文件列表 -->
+<div class="container" style="padding-top: 35px">
 	<!-- 面板表格 -->
 	<div id="panel" >
-	    <div class="panel panel-default panel-primary">
-	        <div class="panel-heading">
-	            网络文件管理系统
-	        </div>
-	        <!-- 盒子 -->
-	        <div class="panel-body">
-	            欢迎使用网络文件管理系统<br>
-	        </div>
+	    <div class="panel panel-info">
 	        <!-- 表格 -->
 	        <table class="table table-striped">
 	            <thead>
-	            <tr class="active success">
+	            <tr class="active info">
 	                <th>编号</th>
 	                <th>文件名称</th>
 	                <th>文件大小</th>
-	                <th>创建日期</th>
-	                <th>下载</th>
+	                <th>上传日期</th>
 	                <th>操作</th>
 	            </tr>
 	            </thead>
@@ -97,15 +87,20 @@
 	            {{range .Files}}
 	            <tr>
 	                <td>{{.Id}}</td>
-	                <td id="fname">{{.Name}}</td>
-	                <td id="fsize">{{.Size}}</td>
-	                <td id="ftime">{{.Date}}</td>
-	                <td><a href="../download?f={{.Name}}">下载</a></td>
-	                {{if .Stat}}
-	                <td><a href="../rmfile?f={{.Name}}">删除</a></td>
-	                {{else}}
-	                <td>删除</td>
-	                {{end}}
+	                <td id="fname" style="text-align: center">{{.Name}}</td>
+	                <td id="fsize" style="text-align: center">{{.Size}}</td>
+	                <td id="ftime" style="text-align: center">{{.Date}}</td>
+	                <td><a class="label label-primary" href="../download?f={{.Name}}">下载</a>
+                        {{if .Stat}}
+                            <a class="label label-danger" href="../rmfile?f={{.Name}}">删除</a>
+                        {{else}}
+                            <a class="label label-default">删除</a>
+                        {{end}}
+                        <!-- 该功能暂未实现哈 -->
+                        <a class="label label-warning">加密</a>
+                        <!-- 该功能暂未实现哈 -->
+                        <a class="label label-info">链接</a>
+                    </td>
 	            </tr>
 	            {{end}}
 	            </tbody>
@@ -113,16 +108,6 @@
 	    </div>
 	</div>
 </div>
-<!-- 分割线 -->
-<div id="divider" style="border-bottom: 1px solid #eee;"></div>
-<footer id="footer">
-   	<div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <a href="http://www.danoonetworks.com">@德纳科技 - 2016</a>
-            </div>
-        </div>
-    </div>
-</footer>
+
 </body>
 </html>
