@@ -1,6 +1,9 @@
 <p align="center">
 	<a href=""><img src="https://ishacker.net/2020/06/21/image-repo/Go/project/fileGo/logo/fileGo-logo-screely.png"></a>
 <p align="center">
+	
+[![Go Report Card](https://goreportcard.com/badge/github.com/YUbuntu0109/fileGo)](https://goreportcard.com/report/github.com/YUbuntu0109/fileGo)
+
 
 # fileGo
 > 📁 A bijou file management tool and nothing framework be used in it !
