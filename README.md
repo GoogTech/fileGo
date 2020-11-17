@@ -1,7 +1,8 @@
 <p align="center">
 	<a href=""><img src="https://ishacker.net/2020/06/21/image-repo/Go/project/fileGo/logo/fileGo-logo-screely.png"></a>
 <p align="center">
-	
+
+![Go](https://github.com/YUbuntu0109/fileGo/workflows/Go/badge.svg)
 [![Go Report Card](https://goreportcard.com/badge/github.com/YUbuntu0109/fileGo)](https://goreportcard.com/report/github.com/YUbuntu0109/fileGo)
 
 
@@ -27,7 +28,7 @@
 > ./fileGo
 ```
 
-Then the browser will be opend auto and jump to the link : *https://localhost:8080* if you run it successfully .
+Then the browser will be opened auto and jump to the link : *https://localhost:8080* if run it successfully .
 
 
 ## Permission( `by session` )
@@ -38,9 +39,9 @@ Then the browser will be opend auto and jump to the link : *https://localhost:80
 
 ## Upload file on linux
 ```shell script
-# it's will to rename the file, such as changing filename.txt to filename.1.txt 
+# it's will rename the file, such as changing filename.txt to filename.1.txt 
 curl -F "file=@a.jpg;filename=a.jpg"  http:/ip:port/upload
 
-# it's will to rename and mandatorily cover the old file..
+# it's will rename and mandatorily cover the old file..
 curl -F "file=@a.jpg;filename=a.jpg"  http:/ip:port/upload/f
 ```
