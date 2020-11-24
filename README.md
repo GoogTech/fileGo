@@ -1,9 +1,13 @@
 <p align="center">
 	<a href=""><img src="https://ishacker.net/2020/06/21/image-repo/Go/project/fileGo/logo/fileGo-logo-screely.png"></a>
-<p align="center">
-
-![Go](https://github.com/YUbuntu0109/fileGo/workflows/Go/badge.svg)
-[![Go Report Card](https://goreportcard.com/badge/github.com/YUbuntu0109/fileGo)](https://goreportcard.com/report/github.com/YUbuntu0109/fileGo)
+	<p align="center">
+		<img src="https://github.com/YUbuntu0109/fileGo/workflows/Go/badge.svg"></img>
+		<img src="https://goreportcard.com/badge/github.com/YUbuntu0109/fileGo"></img>
+		<img src="https://img.shields.io/github/commit-activity/m/google-golang/fileGo?color=ff69b4"></img>
+		<img src="https://img.shields.io/github/repo-size/google-golang/fileGo"></img>
+		<img src="https://img.shields.io/github/license/google-golang/fileGo.svg"></img>
+	</p>
+</p>
 
 
 # fileGo
