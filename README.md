@@ -1,5 +1,5 @@
 <p align="center">
-	<a href=""><img src="https://ishacker.net/2020/06/21/image-repo/Go/project/fileGo/logo/fileGo-logo-screely.png"></a>
+	<a href=""><img src="https://googtech.io/2020/06/21/image-repo/Go/project/fileGo/logo/fileGo-logo-screely.png"></a>
 	<p align="center">
 		<img src="https://github.com/YUbuntu0109/fileGo/workflows/Go/badge.svg"></img>
 		<img src="https://goreportcard.com/badge/github.com/YUbuntu0109/fileGo"></img>
