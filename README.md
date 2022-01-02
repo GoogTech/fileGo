@@ -1,8 +1,8 @@
 <p align="center">
-	<a href=""><img src="https://googtech.io/2020/06/21/image-repo/Go/project/fileGo/logo/fileGo-logo-screely.png"></a>
+	<img src="https://user-images.githubusercontent.com/43493852/147871833-8e8f0f21-d6c6-4be9-9e0f-892572bae942.png"></img>
 	<p align="center">
-		<img src="https://github.com/YUbuntu0109/fileGo/workflows/Go/badge.svg"></img>
-		<img src="https://goreportcard.com/badge/github.com/YUbuntu0109/fileGo"></img>
+		<img src="https://github.com/GoogTech/fileGo/workflows/Go/badge.svg"></img>
+		<img src="https://goreportcard.com/badge/github.com/GoogTech/fileGo"></img>
 		<img src="https://img.shields.io/github/commit-activity/m/google-golang/fileGo?color=ff69b4"></img>
 		<img src="https://img.shields.io/github/repo-size/google-golang/fileGo"></img>
 		<img src="https://img.shields.io/github/license/google-golang/fileGo.svg"></img>
